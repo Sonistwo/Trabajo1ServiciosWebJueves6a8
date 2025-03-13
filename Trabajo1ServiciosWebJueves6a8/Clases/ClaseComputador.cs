@@ -29,11 +29,11 @@ namespace Trabajo1ServiciosWebJueves6a8.Clases
             {
                 db.computadors.Add(computador);
                 db.SaveChanges();
-                return "Tipo de producto insertado correctamente";
+                return "Computador insertado correctamente";
             }
             catch (Exception ex)
             {
-                return "Error al insertar el tipo de producto: " + ex.Message;
+                return "Error al insertar el computador: " + ex.Message;
             }
         }
 
@@ -45,16 +45,16 @@ namespace Trabajo1ServiciosWebJueves6a8.Clases
 
                 if (pc == null)
                 {
-                    return "El tipo de producto con el código ingresado no existe. Por tanto, no puede ser actualizado.";
+                    return "El Computador con el código ingresado no existe. Por tanto, no puede ser actualizado.";
                 }
 
                 db.computadors.AddOrUpdate(computador);
                 db.SaveChanges();
-                return "Tipo de producto insertado correctamente";
+                return "Computador modificado correctamente";
             }
             catch (Exception ex)
             {
-                return "Error al insertar el tipo de producto: " + ex.Message;
+                return "Error al insertar el Computador: " + ex.Message;
             }
         }
 
@@ -66,7 +66,7 @@ namespace Trabajo1ServiciosWebJueves6a8.Clases
 
                 if (pc == null)
                 {
-                    return "El tipo de producto con el código ingresado no existe. Por tanto, no puede ser eliminado";
+                    return "El Computador con el código ingresado no existe. Por tanto, no puede ser eliminado";
                 }
 
                 db.computadors.Remove(pc);
@@ -75,7 +75,7 @@ namespace Trabajo1ServiciosWebJueves6a8.Clases
             }
             catch (Exception ex)
             {
-                return "Error al eliminar el tipo de producto: " + ex.Message;
+                return "Error al eliminar el Computador: " + ex.Message;
             }
         }
     }
