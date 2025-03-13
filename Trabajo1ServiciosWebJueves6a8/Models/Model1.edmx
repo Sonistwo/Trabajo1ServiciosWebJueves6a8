@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AgenciaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agencia">
+          <Key>
+            <PropertyRef Name="IdAgencia" />
+          </Key>
+          <Property Name="IdAgencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nit" Type="int" />
+          <Property Name="Sede" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" />
+          <Property Name="telefono" Type="int" />
+        </EntityType>
+        <EntityType Name="computador">
+          <Key>
+            <PropertyRef Name="idcomputador" />
+          </Key>
+          <Property Name="idcomputador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroProcesadores" Type="int" />
+          <Property Name="marcaProcesador" Type="varchar" MaxLength="50" />
+          <Property Name="TamañoDiscoDuro" Type="varchar" MaxLength="10" />
+          <Property Name="DetalleComponentes" Type="varchar" MaxLength="250" />
+          <Property Name="IdTipoComputador" Type="int" />
+        </EntityType>
+        <EntityType Name="tipoComputador">
+          <Key>
+            <PropertyRef Name="IdTipoComputador" />
+          </Key>
+          <Property Name="IdTipoComputador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="Idventa" />
+          </Key>
+          <Property Name="Idventa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_hora" Type="datetime" />
+          <Property Name="Precio" Type="money" />
+          <Property Name="IdAgencia" Type="int" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idcomputador" Type="int" />
+        </EntityType>
+        <Association Name="IdAgenciaFK">
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agencia">
+              <PropertyRef Name="IdAgencia" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdAgencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idClienteFK">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idcomputadorFK">
+          <End Role="computador" Type="Self.computador" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="computador">
+              <PropertyRef Name="idcomputador" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idcomputador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdTipoComputadorFK">
+          <End Role="tipoComputador" Type="Self.tipoComputador" Multiplicity="0..1" />
+          <End Role="computador" Type="Self.computador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoComputador">
+              <PropertyRef Name="IdTipoComputador" />
+            </Principal>
+            <Dependent Role="computador">
+              <PropertyRef Name="IdTipoComputador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AgenciaModelStoreContainer">
+          <EntitySet Name="Agencia" EntityType="Self.Agencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="computador" EntityType="Self.computador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoComputador" EntityType="Self.tipoComputador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="IdAgenciaFK" Association="Self.IdAgenciaFK">
+            <End Role="Agencia" EntitySet="Agencia" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="idClienteFK" Association="Self.idClienteFK">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="idcomputadorFK" Association="Self.idcomputadorFK">
+            <End Role="computador" EntitySet="computador" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="IdTipoComputadorFK" Association="Self.IdTipoComputadorFK">
+            <End Role="tipoComputador" EntitySet="tipoComputador" />
+            <End Role="computador" EntitySet="computador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AgenciaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agencia">
+          <Key>
+            <PropertyRef Name="IdAgencia" />
+          </Key>
+          <Property Name="IdAgencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nit" Type="Int32" />
+          <Property Name="Sede" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ventas" Relationship="Self.IdAgenciaFK" FromRole="Agencia" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="Int32" />
+          <NavigationProperty Name="Ventas" Relationship="Self.idClienteFK" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="computador">
+          <Key>
+            <PropertyRef Name="idcomputador" />
+          </Key>
+          <Property Name="idcomputador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroProcesadores" Type="Int32" />
+          <Property Name="marcaProcesador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TamañoDiscoDuro" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DetalleComponentes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoComputador" Type="Int32" />
+          <NavigationProperty Name="Ventas" Relationship="Self.idcomputadorFK" FromRole="computador" ToRole="Venta" />
+          <NavigationProperty Name="tipoComputador" Relationship="Self.IdTipoComputadorFK" FromRole="computador" ToRole="tipoComputador" />
+        </EntityType>
+        <EntityType Name="tipoComputador">
+          <Key>
+            <PropertyRef Name="IdTipoComputador" />
+          </Key>
+          <Property Name="IdTipoComputador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="computadors" Relationship="Self.IdTipoComputadorFK" FromRole="tipoComputador" ToRole="computador" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="Idventa" />
+          </Key>
+          <Property Name="Idventa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_hora" Type="DateTime" Precision="3" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IdAgencia" Type="Int32" />
+          <Property Name="idCliente" Type="Int32" />
+          <Property Name="idcomputador" Type="Int32" />
+          <NavigationProperty Name="Agencia" Relationship="Self.IdAgenciaFK" FromRole="Venta" ToRole="Agencia" />
+          <NavigationProperty Name="Cliente" Relationship="Self.idClienteFK" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="computador" Relationship="Self.idcomputadorFK" FromRole="Venta" ToRole="computador" />
+        </EntityType>
+        <Association Name="IdAgenciaFK">
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agencia">
+              <PropertyRef Name="IdAgencia" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdAgencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idClienteFK">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idcomputadorFK">
+          <End Role="computador" Type="Self.computador" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="computador">
+              <PropertyRef Name="idcomputador" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idcomputador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdTipoComputadorFK">
+          <End Role="tipoComputador" Type="Self.tipoComputador" Multiplicity="0..1" />
+          <End Role="computador" Type="Self.computador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoComputador">
+              <PropertyRef Name="IdTipoComputador" />
+            </Principal>
+            <Dependent Role="computador">
+              <PropertyRef Name="IdTipoComputador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AgenciaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agencias" EntityType="Self.Agencia" />
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="computadors" EntityType="Self.computador" />
+          <EntitySet Name="tipoComputadors" EntityType="Self.tipoComputador" />
+          <EntitySet Name="Ventas" EntityType="Self.Venta" />
+          <AssociationSet Name="IdAgenciaFK" Association="Self.IdAgenciaFK">
+            <End Role="Agencia" EntitySet="Agencias" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="idClienteFK" Association="Self.idClienteFK">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="idcomputadorFK" Association="Self.idcomputadorFK">
+            <End Role="computador" EntitySet="computadors" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="IdTipoComputadorFK" Association="Self.IdTipoComputadorFK">
+            <End Role="tipoComputador" EntitySet="tipoComputadors" />
+            <End Role="computador" EntitySet="computadors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AgenciaModelStoreContainer" CdmEntityContainer="AgenciaEntities">
+          <EntitySetMapping Name="Agencias">
+            <EntityTypeMapping TypeName="AgenciaModel.Agencia">
+              <MappingFragment StoreEntitySet="Agencia">
+                <ScalarProperty Name="IdAgencia" ColumnName="IdAgencia" />
+                <ScalarProperty Name="Nit" ColumnName="Nit" />
+                <ScalarProperty Name="Sede" ColumnName="Sede" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="AgenciaModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="computadors">
+            <EntityTypeMapping TypeName="AgenciaModel.computador">
+              <MappingFragment StoreEntitySet="computador">
+                <ScalarProperty Name="idcomputador" ColumnName="idcomputador" />
+                <ScalarProperty Name="numeroProcesadores" ColumnName="numeroProcesadores" />
+                <ScalarProperty Name="marcaProcesador" ColumnName="marcaProcesador" />
+                <ScalarProperty Name="TamañoDiscoDuro" ColumnName="TamañoDiscoDuro" />
+                <ScalarProperty Name="DetalleComponentes" ColumnName="DetalleComponentes" />
+                <ScalarProperty Name="IdTipoComputador" ColumnName="IdTipoComputador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoComputadors">
+            <EntityTypeMapping TypeName="AgenciaModel.tipoComputador">
+              <MappingFragment StoreEntitySet="tipoComputador">
+                <ScalarProperty Name="IdTipoComputador" ColumnName="IdTipoComputador" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventas">
+            <EntityTypeMapping TypeName="AgenciaModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="Idventa" ColumnName="Idventa" />
+                <ScalarProperty Name="Fecha_hora" ColumnName="Fecha_hora" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="IdAgencia" ColumnName="IdAgencia" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idcomputador" ColumnName="idcomputador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
